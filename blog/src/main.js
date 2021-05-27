@@ -5,6 +5,9 @@ import store from './store'
 import 'bootstrap' 
 import 'bootstrap/dist/css/bootstrap.css'
 
+import axios from 'axios'
+axios.defaults.withCredentials = true;
+
 Vue.config.productionTip = false
 
 new Vue({

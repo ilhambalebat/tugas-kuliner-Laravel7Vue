@@ -7,14 +7,14 @@
                     Login
                   </div>
                   <div class="card-body">
-                    <form action="" method="post">
+                    <form action="" method="post" @submit.prevent="store">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control" type="email" name="email" id="email">
+                            <input class="form-control" type="email" v-model="form.email" id="email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input class="form-control" type="password" name="password" id="password">
+                            <input class="form-control" type="password" v-model="form.password" id="password">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -27,8 +27,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
+    data() {
+        return {
+            form: {
+                email: "ilhambalebat@gmail.com",
+                password: "password"
+            }
+        }
+    },
+    methods:
+    {
+        async store()
+        {
+            await axios.get('http://localhost:8000/sanctum/csrf-cookie')
+            await axios.post('http://localhost:8000/login', this.form)
+            let user = await axios.get("http://localhost:8000/api/user")
+            console.log(user.data)
+        }
+    }
 }
 </script>
 
