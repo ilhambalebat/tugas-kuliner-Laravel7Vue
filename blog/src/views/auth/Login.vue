@@ -41,9 +41,9 @@ export default {
     {
         async store()
         {
-            await axios.get('http://localhost:8000/sanctum/csrf-cookie')
-            await axios.post('http://localhost:8000/login', this.form)
-            let user = await axios.get("http://localhost:8000/api/user")
+            await axios.get('sanctum/csrf-cookie')
+            await axios.post('login', this.form)
+            let user = await axios.get("api/user")
             console.log(user.data)
         }
     }
