@@ -8,10 +8,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:8000/"
+
+store.dispatch('auth/me').finally(() => {
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+})
+
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')

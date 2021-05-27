@@ -39,9 +39,9 @@ export default
         {
             try
             {
-                let response = await axios.get('api/user')
+                let {data} = await axios.get('api/me')
                 commit('SET_AUTHENTICATED',true)
-                commit('SET_USER',response.data)
+                commit('SET_USER',data.data)
             }
             catch(e)
             {

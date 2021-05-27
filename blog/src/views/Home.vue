@@ -10,5 +10,8 @@
 
 export default {
   name: 'Home',
+  mounted() {
+    document.title = "Blog"
+  }
 }
 </script>
