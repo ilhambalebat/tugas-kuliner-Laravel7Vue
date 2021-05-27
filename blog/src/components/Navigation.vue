@@ -12,22 +12,45 @@
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <router-link :to="{name: 'auth.login'}" class="nav-link">Login</router-link>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+
+      <template v-if="!authCheck">
+        <li class="nav-item">
+          <router-link :to="{name: 'auth.login'}" class="nav-link">Login</router-link>
+        </li>
+      </template>
+      <template v-else>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </template>
+
     </ul>
     
   </div>
 </nav>
 </template>
+
+<script>
+import {mapGetters} from 'vuex'
+export default {
+    computed: {
+      ...mapGetters({
+        authCheck: 'auth/check',
+        user: 'auth/user'
+      })
+    },
+
+    mounted()
+    {
+
+    }
+}
+</script>

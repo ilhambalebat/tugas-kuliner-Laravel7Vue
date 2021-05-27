@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {mapActions} from 'vuex'
 export default {
     data() {
         return {
@@ -39,12 +39,13 @@ export default {
     },
     methods:
     {
+        ...mapActions({
+            login: 'auth/login'
+        }),
         async store()
-        {
-            await axios.get('sanctum/csrf-cookie')
-            await axios.post('login', this.form)
-            let user = await axios.get("api/user")
-            console.log(user.data)
+        {           
+            await this.login(this.form)
+            this.$router.replace('/')
         }
     }
 }
