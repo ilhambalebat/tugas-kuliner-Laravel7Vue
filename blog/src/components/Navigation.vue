@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <router-link exact :to="{name : 'Home'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
+        <router-link exact :to="{name : 'home'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -27,7 +27,7 @@
             <router-link class="dropdown-item" to="/posts/new">New Blog</router-link>
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
           </div>
         </li>
       </template>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
     computed: {
       ...mapGetters({
@@ -47,10 +47,15 @@ export default {
         user: 'auth/user'
       })
     },
-
-    mounted()
-    {
-
+    methods: {
+      ...mapActions({
+        signoutAction: 'auth/signout'
+      }),
+      async logout()
+      {
+         await this.signoutAction();
+         this.$router.replace({name: 'auth.login'})
+      } 
     }
 }
 </script>

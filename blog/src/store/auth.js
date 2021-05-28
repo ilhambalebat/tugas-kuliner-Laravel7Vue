@@ -34,7 +34,7 @@ export default
         
             dispatch('me')
         },
-
+        
         async me({commit})
         {
             try
@@ -46,9 +46,13 @@ export default
             catch(e)
             {
                 commit('SET_AUTHENTICATED',false)
-                commit('SET_USER',[])
-
+                commit('SET_USER',[])                
             }
+        },
+        async signout({dispatch})
+        {
+            await axios.post('logout')
+            dispatch('me')  
         }
     }
 }
