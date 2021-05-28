@@ -19,6 +19,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "post index" */ '../views/posts/Index.vue')
   },
   {
+    path: '/posts/:subjectSlug/:postSlug',
+    name: 'posts.show',
+    component: () => import(/* webpackChunkName: "post index" */ '../views/posts/Show.vue')
+  },
+  {
     path: '/login',
     name: 'auth.login',
     // component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue')

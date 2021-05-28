@@ -8,7 +8,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('posts')->namespace('Posts')->group(function () {
         Route::get('', 'PostController@index')->withoutMiddleware('auth:sanctum');
-        Route::get('{post:slug}', 'PostController@show')->withoutMiddleware('auth:sanctum');
+        Route::get('{subject:slug}/{post:slug}', 'PostController@show')->withoutMiddleware('auth:sanctum');
         Route::get('subjects/{subject:slug}', 'SubjectController@show')->withoutMiddleware('auth:sanctum');
     });
 });

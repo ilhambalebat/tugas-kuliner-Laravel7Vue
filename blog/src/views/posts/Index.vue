@@ -12,7 +12,7 @@
                         <div class="mt-3">
 
                         </div>
-                        <router-link to="abc">Read More!</router-link>
+                        <router-link :to="`/posts/${post.subject.slug}/${post.slug}`">Read More!</router-link>
                     </div>
                 </div>
 

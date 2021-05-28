@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Posts\PostCollection;
 use App\Http\Resources\Posts\PostResource;
 use App\Models\Posts\Post;
+use App\Models\Posts\Subject;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
         return new PostCollection(($posts));
     }
 
-    public function show(Post $post)
+    public function show(Subject $subject, Post $post)
     {
         return new PostResource($post);
     }
