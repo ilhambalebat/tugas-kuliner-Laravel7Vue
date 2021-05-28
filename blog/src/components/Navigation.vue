@@ -10,6 +10,10 @@
       <li class="nav-item">
         <router-link exact :to="{name : 'home'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
       </li>
+      <li class="nav-item">
+        <router-link :to="{name : 'posts.index'}" class="nav-link">Posts 
+          </router-link>
+      </li>
     </ul>
     <ul class="navbar-nav">
 
