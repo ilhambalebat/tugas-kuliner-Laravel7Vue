@@ -21,4 +21,23 @@ class PostController extends Controller
     {
         return new PostResource($post);
     }
+
+    public function store()
+    {
+        request()->validate([
+            'title' => 'required|min:6',
+            'body' => 'required',
+            'subject' => 'required'
+        ]);
+
+        auth()->loginUsingId(2);
+        auth()->user()->posts()->create([
+            'title' => request('title'),
+            'slug' => \Str::slug(request('title')) . \Str::random(6),
+            'body' => request('body'),
+            'subject_id' => request('subject')
+        ]);
+
+        return response()->json(['success' => 'The post was created']);
+    }
 }
