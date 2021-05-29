@@ -8,6 +8,11 @@ use App\Models\Posts\Subject;
 
 class SubjectController extends Controller
 {
+    public function index()
+    {
+        return Subject::get(['id', 'name']);
+    }
+
     public function show(Subject $subject)
     {
         // $posts = $subject->posts()->latest()->paginate(request('perPage'));
