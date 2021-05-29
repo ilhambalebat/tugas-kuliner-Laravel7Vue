@@ -3,7 +3,7 @@
 
       <div class="row">
           <div class="col-md-6">
-                <div class="card mb-3" v-for="post in posts" :key="post.id">
+                <div class="card mb-3" v-for="post in posts.data" :key="post.id">
                     <div class="card-header">
                         {{post.title}}
                     </div>
@@ -16,7 +16,14 @@
                     </div>
                 </div>
 
-                <button class="btn-primary">Load More</button>
+                <button v-if="posts.hasMorePages" class="btn-primary" @click.prevent="loadMore">
+                    <template v-if="loading">
+                        Please Wait . . .
+                    </template>
+                    <template v-else>
+                        Load More
+                    </template>
+                </button>
           </div>
       </div>
   </div>
@@ -29,6 +36,8 @@ export default {
     {
         return {
             posts: [],
+            perPage: 20,
+            loading: false
         }
     },
     mounted()
@@ -38,8 +47,19 @@ export default {
     methods: {
         async fetchPosts()
         {
-            let response = await axios.get('api/posts');
-            this.posts = response.data.data;
+            let response = await axios.get('api/posts',{
+                params: {perPage: this.perPage}
+            });
+            this.loading = false
+            this.posts = response.data;
+        },
+        loadMore()
+        {
+            this.loading = true
+            this.perPage+=20
+            setTimeout(() => {
+                this.fetchPosts()
+            },1000)
         }
     }
 }

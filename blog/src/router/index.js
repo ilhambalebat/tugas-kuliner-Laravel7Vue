@@ -60,10 +60,10 @@ router.beforeEach((to, from, next) => {
   // else next()
 
  
-  console.log(from)
-  console.log(next)
-  console.log(to)
-  console.log(store.getters['auth/check'])
+  // console.log(from)
+  // console.log(next)
+  // console.log(to)
+  // console.log(store.getters['auth/check'])
 
 })
 
