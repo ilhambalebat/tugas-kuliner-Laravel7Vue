@@ -44,7 +44,10 @@ class PostController extends Controller
             'body' => request('body'),
             'subject_id' => request('subject')
         ]);
-        return response()->json(['success' => 'The post was updated']);
+
+        return (new PostResource($post))->additional([
+            'success' => 'The post was updated'
+        ]);
     }
 
     public function destroy(Post $post)

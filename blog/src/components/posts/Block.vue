@@ -4,8 +4,9 @@
       <div class="row">
           <div class="col-md-6">
                 <div class="card mb-3" v-for="post in posts.data" :key="post.id">
-                    <div class="card-header">
+                    <div class="card-header d-flex align-items-center justify-content-between">
                         {{post.title}}
+                        <router-link :to="`/posts/${post.subject.slug}/${post.slug}/edit`">Edit</router-link>
                     </div>
                     <div class="card-body">
                         {{post.body}}
