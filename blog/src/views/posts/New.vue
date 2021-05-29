@@ -12,6 +12,9 @@
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" v-model="post.title" id="title" class="form-control">
+                            <div class="text-danger mt-2" v-if="errors.title">
+                                {{errors.title[0]}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="title">Subject</label>
@@ -19,10 +22,16 @@
                                 <option value="" selected>Pilih Subject</option>
                                 <option v-for="subject in subjects" :key="subject.id" :value="subject.id">{{subject.name}}</option>
                             </select>
+                            <div class="text-danger mt-2" v-if="errors.subject">
+                                {{errors.subject[0]}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="body">Body</label>
                             <textarea type="text" v-model="post.body" id="body" rows="5" placeholder="Tuliskan Apapun" class="form-control"></textarea>
+                            <div class="text-danger mt-2" v-if="errors.body">
+                                {{errors.body[0]}}
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -49,7 +58,8 @@ export default {
                 subject: ""
             },
             subjects: [],
-            message: ""
+            message: "",
+            errors: []
         }
     },
     mounted()
@@ -59,8 +69,20 @@ export default {
     methods: {
         async store()
         {
-            let response = await axios.post('api/posts/create',this.post)
-            this.message = response.data.success
+            try
+            {
+                let response = await axios.post('api/posts/create',this.post)
+                this.message = response.data.success
+                this.errors = [];
+                this.post.title = '';
+                this.post.body = '';
+                this.post.subject = '';
+            }
+            catch(e)
+            {
+                this.errors = e.response.data.errors
+            }
+
         },
         async fetchSubjects()
         {
