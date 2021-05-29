@@ -24,13 +24,7 @@ class PostController extends Controller
 
     public function store()
     {
-        request()->validate([
-            'title' => 'required|min:6',
-            'body' => 'required',
-            'subject' => 'required'
-        ]);
-
-        auth()->loginUsingId(2);
+        $this->requestValidate();
         auth()->user()->posts()->create([
             'title' => request('title'),
             'slug' => \Str::slug(request('title')) . \Str::random(6),
@@ -39,5 +33,32 @@ class PostController extends Controller
         ]);
 
         return response()->json(['success' => 'The post was created']);
+    }
+
+    public function update(Post $post)
+    {
+        $this->requestValidate();
+
+        $post->update([
+            'title' => request('title'),
+            'body' => request('body'),
+            'subject_id' => request('subject')
+        ]);
+        return response()->json(['success' => 'The post was updated']);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return response()->json(['success' => 'The post was deleted']);
+    }
+
+    public function requestValidate()
+    {
+        return request()->validate([
+            'title' => 'required|min:6',
+            'body' => 'required',
+            'subject' => 'required'
+        ]);
     }
 }
