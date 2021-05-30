@@ -51,7 +51,7 @@
 						<figure>
 							<img 
               :src="image_url+post.photo" 
-              alt="Image" class="img-fluid tm-gallery-img" />
+              alt="Image" class="img-fluid tm-gallery-img" style="height: 200px" />
 							<figcaption>
 								<h4 class="tm-gallery-title">{{post.title}}</h4>
 								<p class="tm-gallery-description">{{post.body}}</p>
