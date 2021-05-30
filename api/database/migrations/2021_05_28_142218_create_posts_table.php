@@ -19,7 +19,9 @@ class CreatePostsTable extends Migration
             $table->foreignId("subject_id");
             $table->string('title');
             $table->string('slug');
+            $table->bigInteger('price');
             $table->text('body');
+            $table->text('photo');
             $table->timestamps();
         });
     }

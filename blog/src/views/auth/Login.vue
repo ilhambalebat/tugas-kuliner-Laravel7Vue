@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container p-5">
       <div class="row">
           <div class="col-md-6">
               <div class="card">
@@ -20,7 +20,11 @@
                     </form>
                   </div>
               </div>
-
+          </div>
+          <div class="col-md-6">
+              <div class="card">
+                   <img :src="background" alt="" height="350px">
+              </div>
           </div>
       </div>
   </div>
@@ -28,13 +32,15 @@
 
 <script>
 import {mapActions} from 'vuex'
+import background from '../../assets/img/background.jpg'
 export default {
     data() {
         return {
             form: {
                 email: "",
                 password: ""
-            }
+            },
+            background: background
         }
     },
     mounted() {
@@ -48,7 +54,7 @@ export default {
         async store()
         {           
             await this.login(this.form)
-            this.$router.replace('/')
+            this.$router.replace({name: 'home'})
         }
     }
 }

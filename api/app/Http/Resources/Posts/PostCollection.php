@@ -21,9 +21,12 @@ class PostCollection extends ResourceCollection
                         'id' => $post->id,
                         'title' => $post->title,
                         'slug' => $post->slug,
+                        'price' => $post->price,
+                        'photo' => $post->photo,
                         'body' => \Str::limit($post->body, 100),
                         'author' => $post->user->name,
-                        'subject' => $post->subject
+                        'subject' => $post->subject,
+                        'published' => $post->subject->created_at->diffForHumans()
                     ];
             }),
             'hasMorePages' => $this->hasMorePages()

@@ -10,7 +10,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('', 'PostController@index')->withoutMiddleware('auth:sanctum');
 
         Route::post('create', 'PostController@store');
-        Route::patch('{post:slug}/edit', 'PostController@update');
+        Route::post('{post:slug}/edit', 'PostController@update');
         Route::delete('{post:slug}/delete', 'PostController@destroy');
 
         Route::get('subjects', 'SubjectController@index')->withoutMiddleware('auth:sanctum');

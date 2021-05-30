@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import 'bootstrap' 
 import 'bootstrap/dist/css/bootstrap.css'
+import 'jquery'
+import 'jquery/dist/jquery.min.js'
+import './assets/css/templatemo-style.css'
+
 
 import axios from 'axios'
 axios.defaults.withCredentials = true;

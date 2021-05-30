@@ -22,29 +22,48 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $this->requestValidate();
+        $imageName = time() . '.jpg';
+        $path = public_path('images');
+
         auth()->user()->posts()->create([
             'title' => request('title'),
-            'slug' => \Str::slug(request('title')) . \Str::random(6),
+            'slug' => \Str::slug(request('title')) . '-' . \Str::random(6),
             'body' => request('body'),
-            'subject_id' => request('subject')
+            'price' => request('price'),
+            'subject_id' => request('subject'),
+            'photo' => $imageName
         ]);
 
+        $request->photo->move(public_path('images'), $imageName);
         return response()->json(['success' => 'The post was created']);
     }
 
-    public function update(Post $post)
+    public function update(Post $post, Request $request)
     {
         $this->requestValidate();
-
-        $post->update([
-            'title' => request('title'),
-            'body' => request('body'),
-            'subject_id' => request('subject')
-        ]);
-
+        $photo = $request->photo;
+        if (is_string($photo)) :
+            $post->update([
+                'title' => request('title'),
+                'body' => request('body'),
+                'subject_id' => request('subject'),
+                'price' => request('price')
+            ]);
+        else :
+            $imageName = time() . '.jpg';
+            $path = public_path('images');
+            $post->update([
+                'title' => request('title'),
+                'body' => request('body'),
+                'subject_id' => request('subject'),
+                'price' => request('price'),
+                'photo' => $imageName
+            ]);
+            $request->photo->move(public_path('images'), $imageName);
+        endif;
         return (new PostResource($post))->additional([
             'success' => 'The post was updated'
         ]);
@@ -61,7 +80,8 @@ class PostController extends Controller
         return request()->validate([
             'title' => 'required|min:6',
             'body' => 'required',
-            'subject' => 'required'
+            'subject' => 'required',
+            'price' => 'required'
         ]);
     }
 }
